@@ -9,6 +9,7 @@ use Encore\Admin\Layout\Column;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Layout\Row;
 use Encore\Admin\Widgets\Table;
+use Encore\Admin\Grid;
 
 class HomeController extends Controller
 {
@@ -16,7 +17,6 @@ class HomeController extends Controller
     {
         return $content
             ->title('Dashboard')
-            ->description('Description...')
             ->row(view('admin'))
             ->row(function (Row $row) {
                 $row->column(12, function (Column $column) {
@@ -27,10 +27,15 @@ class HomeController extends Controller
 
     protected function renderProdutos()
     {
-        $produtos = Produto::all();
 
-        $table = new Table(['ID', 'Nome', 'SKU', 'Preço', 'Imagens'], $produtos->toArray());
+        $grid = new Grid(new Produto());
 
-        return $table->render();
+        $grid->column('id', __('ID'))->sortable();
+        $grid->column('imagens', __('Imagens'))->image('', 150, 150);
+        $grid->column('nome', __('Nome'));
+        $grid->column('sku', __('SKU'));
+        $grid->column('preco', __('Preço'));
+
+        return $grid;
     }
 }

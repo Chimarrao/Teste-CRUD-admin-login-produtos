@@ -27,12 +27,10 @@ class ProdutoController extends AdminController
         $grid = new Grid(new Produto());
 
         $grid->column('id', __('ID'))->sortable();
+        $grid->column('imagens', __('Imagens'))->image('', 150, 150);
         $grid->column('nome', __('Nome'));
         $grid->column('sku', __('SKU'));
         $grid->column('preco', __('Preço'));
-        $grid->column('imagens', __('Imagens'))->image('', 50, 50);
-        $grid->column('created_at', __('Criado em'));
-        $grid->column('updated_at', __('Atualizado em'));
 
         return $grid;
     }
@@ -52,8 +50,6 @@ class ProdutoController extends AdminController
         $show->field('sku', __('SKU'));
         $show->field('preco', __('Preço'));
         $show->field('imagens', __('Imagens'))->image();
-        $show->field('created_at', __('Criado em'));
-        $show->field('updated_at', __('Atualizado em'));
 
         return $show;
     }
@@ -72,8 +68,6 @@ class ProdutoController extends AdminController
         $form->text('sku', __('SKU'))->rules('required');
         $form->currency('preco', __('Preço'))->rules('required');
         $form->multipleImage('imagens', __('Imagens'))->removable()->sortable();
-        $form->display('created_at', __('Criado em'));
-        $form->display('updated_at', __('Atualizado em'));
 
         return $form;
     }
